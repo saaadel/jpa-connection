@@ -52,7 +52,7 @@ public enum JpaUnwrappedConnectionFactory {
             @Override
             public boolean isLinkable(final ClassLoader classLoader) {
                 final VersionUtils.VersionParsed versionParsed = VersionUtils.getVersionMethodResultParsed(classLoader, "org.eclipse.persistence.Version", "getVersion");
-                //EclipseLink < 2.0
+                //EclipseLink &lt; 2.0
                 return versionParsed != null && versionParsed.lt(2, 0);
             }
         };

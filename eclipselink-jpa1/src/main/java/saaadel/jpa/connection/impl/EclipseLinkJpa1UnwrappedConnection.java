@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.function.Consumer;
 
 /**
- * EclipseLink <2.0
+ * EclipseLink &lt; 2.0
  */
 public class EclipseLinkJpa1UnwrappedConnection implements JpaUnwrappedConnection {
 
