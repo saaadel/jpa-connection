@@ -1,5 +1,9 @@
 package saaadel.jpa.connection.internal;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import saaadel.jpa.connection.JpaUnwrappedConnectionFactory;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class VersionUtils {
+    private static final Logger LOGGER = LogManager.getLogger(JpaUnwrappedConnectionFactory.class);
     private static Pattern VERSION_PATTERN = Pattern.compile("^(\\d+)(?:\\.(\\d+))?.*$\n");
 
     private VersionUtils() {
@@ -26,16 +31,20 @@ public final class VersionUtils {
                 final Object versionMethodResult;
                 try {
                     versionMethodResult = versionMethod.invoke(null);
-                } catch (IllegalAccessException | InvocationTargetException e) {
+                } catch (IllegalAccessException | InvocationTargetException ex) {
+                    LOGGER.debug("Can't invoke version method", ex);
                     return null;
                 }
 
+                LOGGER.trace("Version method result for {}#{}: {}", versionClassName, versionMethodName, versionMethodResult);
                 return versionMethodResult == null ? null : parseVersion("" + versionMethodResult);
 
-            } catch (NoSuchMethodException e) {
+            } catch (NoSuchMethodException ex) {
+                LOGGER.debug("Version method not found", ex);
                 return null;
             }
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException ex) {
+            LOGGER.debug("Version class not found", ex);
             return null;
         }
     }
@@ -50,20 +59,24 @@ public final class VersionUtils {
             final Field versionField;
             try {
                 versionField = versionClass.getField(versionFieldName);
-            } catch (NoSuchFieldException e) {
+            } catch (NoSuchFieldException ex) {
+                LOGGER.debug("Version field not found", ex);
                 return null;
             }
 
             final Object versionFieldValue;
             try {
                 versionFieldValue = versionField.get(Modifier.isStatic(versionField.getModifiers()) ? null : versionClass.newInstance());
-            } catch (IllegalAccessException | InstantiationException e) {
+            } catch (IllegalAccessException | InstantiationException ex) {
+                LOGGER.debug("Can't get value of version field", ex);
                 return null;
             }
 
+            LOGGER.trace("Version field result for {}#{}: {}", versionClassName, versionFieldName, versionFieldValue);
             return versionFieldValue == null ? null : parseVersion("" + versionFieldValue);
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException ex) {
+            LOGGER.debug("Version class not found", ex);
             return null;
         }
     }

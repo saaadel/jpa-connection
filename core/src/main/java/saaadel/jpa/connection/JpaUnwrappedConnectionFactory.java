@@ -1,5 +1,7 @@
 package saaadel.jpa.connection;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import saaadel.jpa.connection.internal.VersionUtils;
 
 import java.text.MessageFormat;
@@ -7,13 +9,17 @@ import java.text.MessageFormat;
 public enum JpaUnwrappedConnectionFactory {
     ;
 
+    private static final Logger LOGGER = LogManager.getLogger(JpaUnwrappedConnectionFactory.class);
+
     public static JpaUnwrappedConnection getInstance(final ClassLoader classLoader) throws IllegalStateException {
         for (final JpaImplementation vendor : JpaImplementation.values()) {
             if (vendor.isLinkable(classLoader)) {
                 final Class<?> aClass;
                 try {
                     aClass = classLoader.loadClass(vendor.implementationClassName);
-                } catch (ClassNotFoundException ignored) {
+                } catch (ClassNotFoundException ex) {
+                    LOGGER.debug("JpaUnwrappedConnection interface implementation not found: {}", vendor.implementationClassName);
+                    LOGGER.debug("", ex);
                     // JPA implementation present, but not JpaUnwrappedConnection implementation
                     continue;
                 }
