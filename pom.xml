@@ -16,9 +16,9 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <plugin.compiler-plugin.version>3.6.1</plugin.compiler-plugin.version>
-        <plugin.source-plugin.version>3.0.1</plugin.source-plugin.version>
-        <plugin.javadoc-plugin.version>2.10.4</plugin.javadoc-plugin.version>
+        <plugin.compiler.version>3.6.1</plugin.compiler.version>
+        <plugin.source.version>3.0.1</plugin.source.version>
+        <plugin.javadoc.version>2.10.4</plugin.javadoc.version>
         <jpa.version>2.1.1</jpa.version>
 
         <jpa.eclipselink.version>2.6.4</jpa.eclipselink.version>
@@ -49,7 +49,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${plugin.compiler-plugin.version}</version>
+                    <version>${plugin.compiler.version}</version>
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
@@ -58,7 +58,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>${plugin.source-plugin.version}</version>
+                    <version>${plugin.source.version}</version>
                     <executions>
                         <execution>
                             <id>attach-sources</id>
@@ -71,7 +71,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>${plugin.javadoc-plugin.version}</version>
+                    <version>${plugin.javadoc.version}</version>
                     <executions>
                         <execution>
                             <id>attach-javadocs</id>
