@@ -47,6 +47,14 @@ public enum JpaUnwrappedConnectionFactory {
                 // Hibernate EntityManager 3.5+
                 return versionParsed.after(3, 5);
             }
+        },
+        EclipseLinkJpa1("saaadel.jpa.connection.impl.EclipseLinkJpa1UnwrappedConnection") {
+            @Override
+            public boolean isLinkable(final ClassLoader classLoader) {
+                final VersionUtils.VersionParsed versionParsed = VersionUtils.getVersionMethodResultParsed(classLoader, "org.eclipse.persistence.Version", "getVersion");
+                //EclipseLink 2.0+
+                return versionParsed.after(2, 0);
+            }
         };
 
         private final String implementationClassName;

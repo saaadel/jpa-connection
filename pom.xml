@@ -11,6 +11,7 @@
         <module>core</module>
         <module>eclipselink</module>
         <module>hibernate</module>
+        <module>eclipselink-jpa1</module>
     </modules>
 
     <properties>
