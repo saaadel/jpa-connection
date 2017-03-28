@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public final class VersionUtils {
     private static final Logger LOGGER = LogManager.getLogger(JpaUnwrappedConnectionFactory.class);
-    private static Pattern VERSION_PATTERN = Pattern.compile("^(\\d+)(?:\\.(\\d+))?.*$\n");
+    private static Pattern VERSION_PATTERN = Pattern.compile("^(\\d+)(?:\\.(\\d+))?.*$");
 
     private VersionUtils() {
     }
