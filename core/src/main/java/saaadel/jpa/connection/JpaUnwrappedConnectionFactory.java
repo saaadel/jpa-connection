@@ -37,7 +37,7 @@ public enum JpaUnwrappedConnectionFactory {
             public boolean isLinkable(final ClassLoader classLoader) {
                 final VersionUtils.VersionParsed versionParsed = VersionUtils.getVersionMethodResultParsed(classLoader, "org.eclipse.persistence.Version", "getVersion");
                 //EclipseLink 2.0+
-                return versionParsed.after(2, 0);
+                return versionParsed != null && versionParsed.ge(2, 0);
             }
         },
         HibernateJpa2("saaadel.jpa.connection.impl.HibernateJpa2UnwrappedConnection") {
@@ -45,15 +45,15 @@ public enum JpaUnwrappedConnectionFactory {
             public boolean isLinkable(final ClassLoader classLoader) {
                 final VersionUtils.VersionParsed versionParsed = VersionUtils.getVersionMethodResultParsed(classLoader, "org.hibernate.Version", "getVersionString");
                 // Hibernate EntityManager 3.5+
-                return versionParsed.after(3, 5);
+                return versionParsed != null && versionParsed.ge(3, 5);
             }
         },
         EclipseLinkJpa1("saaadel.jpa.connection.impl.EclipseLinkJpa1UnwrappedConnection") {
             @Override
             public boolean isLinkable(final ClassLoader classLoader) {
                 final VersionUtils.VersionParsed versionParsed = VersionUtils.getVersionMethodResultParsed(classLoader, "org.eclipse.persistence.Version", "getVersion");
-                //EclipseLink 2.0+
-                return versionParsed.after(2, 0);
+                //EclipseLink < 2.0
+                return versionParsed != null && versionParsed.lt(2, 0);
             }
         };
 

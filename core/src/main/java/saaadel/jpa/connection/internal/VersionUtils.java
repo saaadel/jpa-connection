@@ -91,20 +91,40 @@ public final class VersionUtils {
             this.minor = minor;
         }
 
-        public boolean after(long major, long minor) {
-            return after(major, minor, true);
+        public boolean gt(long major, long minor) {
+            return gt(major, minor, true);
         }
 
-        public boolean after(long major, long minor, boolean minorNullAsZero) {
+        public boolean gt(long major, long minor, boolean minorNullAsZero) {
             return this.major > major || (this.major == major && (this.minor != null ? this.minor > minor : !minorNullAsZero || 0 > minor));
         }
 
-        public boolean afterOrEquals(long major, long minor) {
-            return afterOrEquals(major, minor, true);
+        public boolean ge(long major, long minor) {
+            return ge(major, minor, true);
         }
 
-        public boolean afterOrEquals(long major, long minor, boolean minorNullAsZero) {
+        public boolean ge(long major, long minor, boolean minorNullAsZero) {
             return this.major > major || (this.major == major && (this.minor != null ? this.minor >= minor : !minorNullAsZero || 0 >= minor));
+        }
+
+        public boolean lt(long major, long minor) {
+            return lt(major, minor, true);
+        }
+
+        public boolean lt(long major, long minor, boolean minorNullAsZero) {
+            return this.major < major || (this.major == major && (this.minor != null ? this.minor < minor : !minorNullAsZero || 0 < minor));
+        }
+
+        public boolean le(long major, long minor) {
+            return le(major, minor, true);
+        }
+
+        public boolean le(long major, long minor, boolean minorNullAsZero) {
+            return this.major < major || (this.major == major && (this.minor != null ? this.minor <= minor : !minorNullAsZero || 0 <= minor));
+        }
+
+        public boolean eq(long major, long minor, boolean minorNullAsZero) {
+            return this.major == major && (this.minor != null ? this.minor == minor : !minorNullAsZero || 0 == minor);
         }
     }
 
